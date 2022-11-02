@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/_12dp"
+    tools:context=".ui.ActorsFragment">
+
+    <EditText
+        android:id="@+id/nameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/name"
+        app:layout_constraintBottom_toTopOf="@+id/surnameEditText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/surnameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/surname"
+        app:layout_constraintBottom_toTopOf="@+id/ageEditText"
+        app:layout_constraintStart_toStartOf="@id/nameEditText"
+        app:layout_constraintTop_toBottomOf="@id/nameEditText" />
+
+    <EditText
+        android:id="@+id/ageEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/age"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@id/petNameEditText"
+        app:layout_constraintStart_toStartOf="@id/surnameEditText"
+        app:layout_constraintTop_toBottomOf="@id/surnameEditText" />
+
+    <EditText
+        android:id="@+id/petNameEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_24dp"
+        android:hint="@string/pet_name"
+        app:layout_constraintBottom_toTopOf="@id/moviesIdEditText"
+        app:layout_constraintEnd_toStartOf="@+id/petAgeEditText"
+        app:layout_constraintStart_toStartOf="@id/ageEditText"
+        app:layout_constraintTop_toBottomOf="@id/ageEditText" />
+
+    <EditText
+        android:id="@+id/petAgeEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:hint="@string/pet_age"
+        app:layout_constraintBottom_toTopOf="@+id/moviesIdEditText"
+        app:layout_constraintStart_toEndOf="@id/petNameEditText"
+        app:layout_constraintTop_toBottomOf="@id/ageEditText"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/isSmartSwitcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/is_smart"
+        app:layout_constraintStart_toEndOf="@id/petAgeEditText"
+        app:layout_constraintTop_toBottomOf="@id/ageEditText" />
+
+    <EditText
+        android:id="@+id/moviesIdEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/movies"
+        app:layout_constraintBottom_toTopOf="@id/addActorButton"
+        app:layout_constraintStart_toStartOf="@id/petNameEditText"
+        app:layout_constraintTop_toBottomOf="@id/petNameEditText" />
+
+    <Button
+        android:id="@+id/addActorButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_actor"
+        android:textAllCaps="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/moviesIdEditText" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/actorsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12dp"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/addActorButton"
+        tools:listitem="@layout/item_actor_layout" />
+</androidx.constraintlayout.widget.ConstraintLayout>

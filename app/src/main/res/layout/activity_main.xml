@@ -7,12 +7,50 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_24dp"
+        android:background="@color/title_color"
+        android:clickable="false"
+        android:focusable="false"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12sp"
+        android:textStyle="normal"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Title" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_container"
+        android:name="com.example.actorsdatabaseapp.ui.ActorsFragment"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_0dp"
+        android:layout_above="@id/bottomNavigationView"
+        android:tag="home_host_fragment"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_56dp"
+        android:background="@color/bottomNavigationColor"
+        android:elevation="@dimen/_0dp"
+        android:outlineAmbientShadowColor="@android:color/transparent"
+        android:outlineSpotShadowColor="@android:color/transparent"
+        app:itemIconTint="@color/selector_color_bottom_nav_bar"
+        app:itemTextColor="@color/selector_color_bottom_nav_bar"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:menu="@menu/menu_home_bottom_navigation"
+        tools:ignore="UnusedAttribute" />
+
+    <View
+        android:id="@+id/lineView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

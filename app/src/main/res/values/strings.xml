@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">ActorsDatabaseApp</string>
+    <string name="navigationMenu_home">Home</string>
+    <string name="navigationMenu_movie">Movie</string>
+    <string name="fragment_actors">Actors</string>
+    <string name="fragment_movies">Movies</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="age">Age</string>
+    <string name="movies">@string/fragment_movies</string>
+    <string name="pet">Pet</string>
+    <string name="add_actor">Add actor</string>
+    <string name="imdb_rate">IMDb Rate</string>
+    <string name="add_movie">Add movie</string>
+    <string name="pet_name">Pet name</string>
+    <string name="pet_age">Pet age</string>
+    <string name="is_smart">Is smart</string>
 </resources>

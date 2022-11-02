@@ -2,10 +2,32 @@ package com.example.actorsdatabaseapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import com.example.actorsdatabaseapp.databinding.ActivityMainBinding
+import com.example.actorsdatabaseapp.ui.ActorsFragment
+import com.example.actorsdatabaseapp.ui.MoviesFragment
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.bottomNavigationView.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.nav_graph_home -> replaceFragment(ActorsFragment())
+                R.id.nav_graph_movie -> replaceFragment(MoviesFragment())
+            }
+            true
+        }
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        val fragmentManager =
+            supportFragmentManager.beginTransaction().replace(R.id.nav_host_container, fragment)
+                .commit()
+
     }
 }
