@@ -1,4 +1,4 @@
-package com.example.actorsdatabaseapp.ui
+package com.example.actorsdatabaseapp.ui.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.actorsdatabaseapp.databinding.ItemActorLayoutBinding
-import com.example.actorsdatabaseapp.modules.sqlite.ActorsModel
+import com.example.actorsdatabaseapp.data.models.ActorsModel
 
 class ActorsAdapter(private val itemClickListener: (ActionEnum, ActorsModel) -> Unit) :
     RecyclerView.Adapter<ActorsAdapter.BaseViewHolder>() {
@@ -25,12 +25,12 @@ class ActorsAdapter(private val itemClickListener: (ActionEnum, ActorsModel) -> 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ActorsAdapter.BaseViewHolder =
+    ): BaseViewHolder =
         ActorItemViewHolder(ItemActorLayoutBinding.inflate(layoutInflater, parent, false))
 
-    override fun onBindViewHolder(holder: ActorsAdapter.BaseViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) =
         holder.bind(actors[position])
-    }
+
 
     override fun getItemCount() = actors.size
 
@@ -48,11 +48,14 @@ class ActorsAdapter(private val itemClickListener: (ActionEnum, ActorsModel) -> 
     inner class ActorItemViewHolder(private var binding: ItemActorLayoutBinding) :
         BaseViewHolder(binding.root) {
         init {
-            binding.root.setOnClickListener {
-                itemClickListener(
-                    ActionEnum.ACTION_DELETE,
-                    actors[adapterPosition]
-                )
+            binding.deleteIconButton.setOnClickListener {
+                itemClickListener(ActionEnum.ACTION_DELETE, actors[adapterPosition])
+                binding.addIconButton.setOnClickListener {
+                    itemClickListener(
+                        ActionEnum.ACTION_ADD_MOVIE,
+                        actors[adapterPosition]
+                    )
+                }
             }
         }
 
@@ -61,11 +64,13 @@ class ActorsAdapter(private val itemClickListener: (ActionEnum, ActorsModel) -> 
                 binding.actorsNameTextView.text = item.name
                 binding.actorsSurnameTextView.text = item.surname
                 binding.actorsAgeTextView.text = item.age.toString()
+
             }
         }
     }
 
     enum class ActionEnum {
-        ACTION_DELETE
+        ACTION_DELETE,
+        ACTION_ADD_MOVIE
     }
 }

@@ -3,12 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_add_icon.xml" value="0.1775" />
+        <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1775" />
+        <entry key="app/src/main/res/drawable/ic_delete_icon.xml" value="0.1775" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1775" />
         <entry key="app/src/main/res/drawable/ic_tab_home.xml" value="0.1775" />
         <entry key="app/src/main/res/drawable/ic_tab_movies.xml" value="0.1775" />
+        <entry key="app/src/main/res/layout/activity_base.xml" value="0.19270833333333334" />
+        <entry key="app/src/main/res/layout/activity_base_for_room.xml" value="0.3729166666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.35885416666666664" />
+        <entry key="app/src/main/res/layout/dialog_add_movie.xml" value="0.371875" />
         <entry key="app/src/main/res/layout/fragment_actors.xml" value="0.19270833333333334" />
+        <entry key="app/src/main/res/layout/fragment_actors_r.xml" value="0.3729166666666667" />
         <entry key="app/src/main/res/layout/fragment_movies.xml" value="0.18135764944275581" />
+        <entry key="app/src/main/res/layout/fragment_movies_r.xml" value="0.3729166666666667" />
         <entry key="app/src/main/res/layout/item_actor_layout.xml" value="0.27246805826822923" />
+        <entry key="app/src/main/res/layout/item_movie_layout.xml" value="0.371875" />
         <entry key="app/src/main/res/menu/menu_home_bottom_nagiation.xml" value="0.371875" />
         <entry key="app/src/main/res/menu/menu_home_bottom_navigation.xml" value="0.3729166666666667" />
       </map>

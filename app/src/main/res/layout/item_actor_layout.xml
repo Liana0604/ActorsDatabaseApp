@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/name"
-        app:layout_constraintBottom_toTopOf="@+id/petsListTextView"
+        app:layout_constraintBottom_toTopOf="@+id/actorsSurnameTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -18,12 +18,10 @@
         android:id="@+id/actorsSurnameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:text="@string/surname"
-        app:layout_constraintBottom_toTopOf="@+id/petsListTextView"
-        app:layout_constraintStart_toEndOf="@+id/actorsNameTextView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintBottom_toTopOf="@+id/actorsAgeTextView"
+        app:layout_constraintStart_toStartOf="@+id/actorsNameTextView"
+        app:layout_constraintTop_toBottomOf="@id/actorsNameTextView" />
 
     <TextView
         android:id="@+id/actorsAgeTextView"
@@ -31,29 +29,34 @@
         android:layout_height="wrap_content"
         android:text="@string/age"
         app:layout_constraintBottom_toTopOf="@+id/petsListTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.148"
-        app:layout_constraintStart_toEndOf="@+id/actorsSurnameTextView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="@id/actorsSurnameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/actorsSurnameTextView" />
 
     <TextView
         android:id="@+id/petsListTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/pet_name"
-        app:layout_constraintBottom_toTopOf="@+id/moviesIdTextView"
-        app:layout_constraintStart_toStartOf="@id/actorsNameTextView"
-        app:layout_constraintTop_toBottomOf="@id/actorsNameTextView" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/actorsAgeTextView"
+        app:layout_constraintTop_toBottomOf="@id/actorsAgeTextView" />
 
-    <TextView
-        android:id="@+id/moviesIdTextView"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/deleteIconButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/movies"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_delete_icon" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/addIconButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/petsListTextView"
-        app:layout_constraintTop_toBottomOf="@id/petsListTextView" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/deleteIconButton"
+        app:srcCompat="@drawable/ic_add_icon" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

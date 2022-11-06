@@ -1,33 +1,41 @@
 package com.example.actorsdatabaseapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.view.View
+import androidx.appcompat.widget.AppCompatButton
 import com.example.actorsdatabaseapp.databinding.ActivityMainBinding
-import com.example.actorsdatabaseapp.ui.ActorsFragment
-import com.example.actorsdatabaseapp.ui.MoviesFragment
+import com.example.actorsdatabaseapp.ui.BaseActivity
+import com.example.actorsdatabaseapp.ui.BaseActivityForRoom
 
-class MainActivity : AppCompatActivity() {
-
+class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.bottomNavigationView.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.nav_graph_home -> replaceFragment(ActorsFragment())
-                R.id.nav_graph_movie -> replaceFragment(MoviesFragment())
-            }
-            true
+        DataBaseEnum.values().forEach {
+            val button = AppCompatButton(this)
+            button.text = it.name.replace("_", " ")
+            button.tag = it
+            binding.linearLayout.addView(button)
+            button.setOnClickListener(this)
         }
     }
 
-    private fun replaceFragment(fragment: Fragment) {
-        val fragmentManager =
-            supportFragmentManager.beginTransaction().replace(R.id.nav_host_container, fragment)
-                .commit()
 
+    override fun onClick(p0: View?) {
+        when (p0?.tag as DataBaseEnum) {
+            DataBaseEnum.ROOM -> startActivity(Intent(this, BaseActivityForRoom::class.java))
+            DataBaseEnum.SQLITE -> startActivity(Intent(this, BaseActivity::class.java))
+        }
     }
+}
+
+enum class DataBaseEnum {
+    ROOM,
+    SQLITE,
 }

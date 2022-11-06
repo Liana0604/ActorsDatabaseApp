@@ -11,9 +11,16 @@
     <string name="movies">@string/fragment_movies</string>
     <string name="pet">Pet</string>
     <string name="add_actor">Add actor</string>
-    <string name="imdb_rate">IMDb Rate</string>
+    <string name="imdb_rate">IMDB Rate</string>
     <string name="add_movie">Add movie</string>
     <string name="pet_name">Pet name</string>
     <string name="pet_age">Pet age</string>
     <string name="is_smart">Is smart</string>
+    <string name="movie_id">Movie ID</string>
+    <string name="movie">@string/navigationMenu_movie</string>
+    <string name="add_movies_for_this_actor">Add movies for this actor</string>
+    <string name="actor_name">Actor Name</string>
+    <string name="actor_id">Actor ID</string>
+
+
 </resources>

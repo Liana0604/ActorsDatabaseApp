@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/_12dp"
-    tools:context=".ui.actors.ActorsFragment">
+    tools:context=".ui.actorsforroom.ActorsRFragment">
 
     <EditText
         android:id="@+id/nameEditText"
@@ -92,7 +92,8 @@
         android:layout_marginTop="@dimen/_12dp"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/addActorButton"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addActorButton"
         tools:listitem="@layout/item_actor_layout" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

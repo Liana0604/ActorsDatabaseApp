@@ -1,29 +1,36 @@
-package com.example.actorsdatabaseapp.ui
+package com.example.actorsdatabaseapp.ui.actors
 
 import android.app.AlertDialog
+import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.example.actorsdatabaseapp.MyApplication
+import com.example.actorsdatabaseapp.R
 import com.example.actorsdatabaseapp.databinding.FragmentActorsBinding
-import com.example.actorsdatabaseapp.modules.sqlite.ActorsModel
-import com.example.actorsdatabaseapp.modules.sqlite.AppSQLiteHelper
+import com.example.actorsdatabaseapp.data.models.ActorsModel
+import com.example.actorsdatabaseapp.data.sqlite.AppSQLiteHelper
+import com.example.actorsdatabaseapp.data.models.MoviesModel
+import com.example.actorsdatabaseapp.ui.adapters.ActorsAdapter
 
 
 class ActorsFragment : Fragment() {
-    private lateinit var actorsViewModel: ActorsViewModel
     private lateinit var binding: FragmentActorsBinding
     private lateinit var actorsAdapter: ActorsAdapter
     private val sqLiteHelper: AppSQLiteHelper by lazy {
         (requireActivity().application as MyApplication).sqLiteHelper
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentActorsBinding.inflate(layoutInflater)
         return binding.root
     }
@@ -31,22 +38,22 @@ class ActorsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.addActorButton.setOnClickListener {
-            addActor(view)
+            addActor()
         }
         setUpListOfActorsIntoRecyclerView()
     }
 
-    private fun addActor(view: View) {
+    private fun addActor() {
         val actorName = binding.nameEditText.text.toString()
         val actorSurname = binding.surnameEditText.text.toString()
         val actorAge = binding.ageEditText.text.toString()
-        val movieId = binding.moviesIdEditText.text.toString()
+//        val petName = binding.petNameEditText.text.toString()
+//        val petAge = binding.petAgeEditText.text.toString()
+//        val petIsSmart = binding.isSmartSwitcher
         if (actorName.isNotEmpty() && actorSurname.isNotEmpty() && actorAge.isNotEmpty()) {
             val actor = ActorsModel(
-                name = actorName,
-                surname = actorSurname,
-                age = actorAge.toInt(),
-                movieId = movieId.toInt()
+                name = actorName, surname = actorSurname, age = actorAge.toInt(),
+                //    pets = arrayListOf()
             )
             val result = sqLiteHelper.addActor(actor)
             if (result > -1) {
@@ -54,7 +61,8 @@ class ActorsFragment : Fragment() {
                 binding.nameEditText.text.clear()
                 binding.surnameEditText.text.clear()
                 binding.ageEditText.text.clear()
-                binding.moviesIdEditText.text.clear()
+//                binding.petNameEditText.text.clear()
+//                binding.petAgeEditText.text.clear()
 
                 setUpListOfActorsIntoRecyclerView()
             }
@@ -75,6 +83,9 @@ class ActorsFragment : Fragment() {
                     ActorsAdapter.ActionEnum.ACTION_DELETE -> {
                         deleteActor(actor)
                     }
+                    ActorsAdapter.ActionEnum.ACTION_ADD_MOVIE -> {
+                        showAddMovieDialog(id)
+                    }
                 }
                 actorsAdapter.updateData(getItemsList())
             }
@@ -87,29 +98,50 @@ class ActorsFragment : Fragment() {
     }
 
     private fun getItemsList(): ArrayList<ActorsModel> {
-        val sqliteHelper = AppSQLiteHelper(requireContext())
-        return sqliteHelper.getActors()
+        return sqLiteHelper.getActors()
     }
 
     private fun deleteActor(actor: ActorsModel) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Delete Record")
         builder.setMessage("Are you sure you want to delete ${actor.id}")
-        builder.setPositiveButton("Yes") { dialogInterface, which ->
-            val sqLiteHelper = AppSQLiteHelper(requireContext())
-            val status = sqLiteHelper.deleteactor(ActorsModel(actor.id, "", "", 0, 0))
-            if (status > -1) {
+        builder.setPositiveButton("Yes") { dialogInterface, _ ->
+            val result = sqLiteHelper.deleteactor(ActorsModel(actor.id, "", "", 0))
+            if (result > -1) {
                 Toast.makeText(requireContext(), "Record deleted successfully.", Toast.LENGTH_LONG)
                     .show()
                 setUpListOfActorsIntoRecyclerView()
             }
             dialogInterface.dismiss()
         }
-        builder.setNegativeButton("No") { dialogInterface, which ->
+        builder.setNegativeButton("No") { dialogInterface, _ ->
             dialogInterface.dismiss()
         }
         val alertDialog: AlertDialog = builder.create()
         alertDialog.setCancelable(false)
         alertDialog.show()
     }
+
+    private fun showAddMovieDialog(id: Int) {
+        Dialog(requireActivity()).apply {
+            setContentView(R.layout.dialog_add_movie)
+            findViewById<TextView>(R.id.actorIdInDialogTV).setText(id.toString())
+
+            findViewById<Button>(R.id.addMovieDialogButton).setOnClickListener {
+                val actorId = findViewById<TextView>(R.id.actorIdInDialogTV).toString()
+                val movieName = findViewById<EditText>(R.id.movieNameEditText).text.toString()
+                val imdbRate = findViewById<EditText>(R.id.imdbRateEditText).text.toString()
+                sqLiteHelper.addMovie(
+                    MoviesModel(
+                        actorId = actorId.toInt(),
+                        name = movieName,
+                        imdbRate = imdbRate.toInt()
+                    )
+                )
+                Toast.makeText(requireContext(), "New Movie Added", Toast.LENGTH_SHORT).show()
+                dismiss()
+            }
+        }.show()
+    }
+
 }
