@@ -9,16 +9,34 @@ import com.example.actorsdatabaseapp.data.room.entities.Movies
 @Dao
 interface ActorsDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addActor(actor: Actors)
+    fun addActor(actor: Actors)
 
+    //
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addMovie(movie: Movies)
+    fun addMovie(movie: Movies)
 
-    @Query("SELECT * FROM actors_table")
-    fun getActorsData(): LiveData<List<Actors>>
+    @Query("SELECT * FROM actors_table ORDER BY id ASC")
+    fun getActorsData(): LiveData<MutableList<Actors>>
+
+    @Query("SELECT * FROM movies_table ORDER BY id ASC")
+    fun getMoviessData(): LiveData<MutableList<Movies>>
+
+    @Delete
+    fun deleteActor(actor: Actors)
+
+    @Delete
+    fun deleteMovie(movie: Movies)
+
+    @Query("DELETE FROM actors_table")
+    fun deleteAllActors()
+
+    @Query("DELETE FROM movies_table")
+    fun deleteAllMovies()
 
     @Transaction
-    @Query("SELECT * FROM actors_table WHERE name = :actorName")
-    fun getActorsWithMoviesData(actorName: String): LiveData<List<ActorWithMovies>>
+    @Query("SELECT * FROM actors_table")
+    fun getActorsWithMoviesData(): LiveData<MutableList<ActorWithMovies>>
 
 }
+
+//WHERE name = :actorName

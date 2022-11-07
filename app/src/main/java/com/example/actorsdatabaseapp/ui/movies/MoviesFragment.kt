@@ -1,4 +1,4 @@
-package com.example.actorsdatabaseapp.ui.adapters
+package com.example.actorsdatabaseapp.ui.movies
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -9,9 +9,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.actorsdatabaseapp.MyApplication
 import com.example.actorsdatabaseapp.databinding.FragmentMoviesBinding
-import com.example.actorsdatabaseapp.data.models.ActorsMoviesModel
+import com.example.actorsdatabaseapp.data.sqlite.models.ActorsMoviesModel
 import com.example.actorsdatabaseapp.data.sqlite.AppSQLiteHelper
-import com.example.actorsdatabaseapp.data.models.MoviesModel
+import com.example.actorsdatabaseapp.data.sqlite.models.MoviesModel
+import com.example.actorsdatabaseapp.ui.adapters.MoviesAdapter
 
 class MoviesFragment : Fragment() {
     private lateinit var binding: FragmentMoviesBinding
@@ -29,11 +30,10 @@ class MoviesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getMoviesList()
+        setUpListOfMoviesIntoRecyclerView()
     }
 
-    private fun getMoviesList(): ArrayList<ActorsMoviesModel> {
-        val moviesList: ArrayList<ActorsMoviesModel> = arrayListOf()
+    private fun setUpListOfMoviesIntoRecyclerView() {
         if (getItemsList().size > 0) {
             moviesAdapter = MoviesAdapter { action, movie ->
                 when (action) {
@@ -41,6 +41,7 @@ class MoviesFragment : Fragment() {
                         deleteMovie(movie)
                     }
                 }
+                moviesAdapter.updateData(getItemsList())
             }
             moviesAdapter.movies = getItemsList()
             binding.moviesRecyclerView.visibility = View.VISIBLE
@@ -48,7 +49,6 @@ class MoviesFragment : Fragment() {
         } else {
             binding.moviesRecyclerView.visibility = View.GONE
         }
-        return moviesList
     }
 
     private fun getItemsList(): ArrayList<ActorsMoviesModel> {
@@ -64,7 +64,7 @@ class MoviesFragment : Fragment() {
             if (result > -1) {
                 Toast.makeText(requireContext(), "Record deleted successfully.", Toast.LENGTH_LONG)
                     .show()
-                getMoviesList()
+                setUpListOfMoviesIntoRecyclerView()
             }
             dialogInterface.dismiss()
         }

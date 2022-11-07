@@ -7,14 +7,31 @@ import com.example.actorsdatabaseapp.data.room.entities.Movies
 
 class ActorsRepository(private val actorsDao: ActorsDao) {
 
-    val getActorsData: LiveData<List<Actors>> = actorsDao.getActorsData()
-    // val getActorsWithMoviesData : LiveData<List<ActorWithMovies>> = actorsDao.getActorsWithMoviesData(actorName =)
+    val getActorsData: LiveData<MutableList<Actors>> = actorsDao.getActorsData()
+    val getActorsWithMoviesData: LiveData<MutableList<ActorWithMovies>> =
+        actorsDao.getActorsWithMoviesData()
 
-    suspend fun addActor(actor: Actors) {
+    fun addActor(actor: Actors) {
         actorsDao.addActor(actor)
     }
 
-    suspend fun addMovies(movie: Movies) {
+    fun addMovies(movie: Movies) {
         actorsDao.addMovie(movie)
+    }
+
+    fun deleteActor(actor: Actors) {
+        actorsDao.deleteActor(actor)
+    }
+
+    fun deleteAllActors() {
+        actorsDao.deleteAllActors()
+    }
+
+    fun deleteMovie(movie: Movies) {
+        actorsDao.deleteMovie(movie)
+    }
+
+    fun deleteAllMovies() {
+        actorsDao.deleteAllMovies()
     }
 }

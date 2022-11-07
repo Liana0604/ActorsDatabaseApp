@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.example.actorsdatabaseapp.R
 import com.example.actorsdatabaseapp.databinding.ActivityBaseBinding
 import com.example.actorsdatabaseapp.ui.actors.ActorsFragment
-import com.example.actorsdatabaseapp.ui.adapters.MoviesFragment
+import com.example.actorsdatabaseapp.ui.movies.MoviesFragment
 
 class BaseActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBaseBinding

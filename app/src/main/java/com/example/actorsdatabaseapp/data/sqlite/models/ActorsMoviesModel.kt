@@ -1,4 +1,4 @@
-package com.example.actorsdatabaseapp.data.models
+package com.example.actorsdatabaseapp.data.sqlite.models
 
 data class ActorsMoviesModel(
     val actorId: Int,

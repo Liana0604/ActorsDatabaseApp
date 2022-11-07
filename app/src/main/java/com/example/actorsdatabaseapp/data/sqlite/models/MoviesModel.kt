@@ -1,4 +1,4 @@
-package com.example.actorsdatabaseapp.data.models
+package com.example.actorsdatabaseapp.data.sqlite.models
 
 data class MoviesModel(
     val id: Int? = null,

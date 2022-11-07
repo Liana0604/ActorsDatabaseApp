@@ -1,8 +1,8 @@
-package com.example.actorsdatabaseapp.data.models
+package com.example.actorsdatabaseapp.data.sqlite.models
 
 
 data class ActorsModel(
-    val id: Int? = null,
+    val id: Int = 0,
     val name: String,
     val surname: String,
     val age: Int,

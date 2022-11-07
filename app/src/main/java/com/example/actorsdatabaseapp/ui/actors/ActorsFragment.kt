@@ -14,9 +14,9 @@ import android.widget.Toast
 import com.example.actorsdatabaseapp.MyApplication
 import com.example.actorsdatabaseapp.R
 import com.example.actorsdatabaseapp.databinding.FragmentActorsBinding
-import com.example.actorsdatabaseapp.data.models.ActorsModel
+import com.example.actorsdatabaseapp.data.sqlite.models.ActorsModel
 import com.example.actorsdatabaseapp.data.sqlite.AppSQLiteHelper
-import com.example.actorsdatabaseapp.data.models.MoviesModel
+import com.example.actorsdatabaseapp.data.sqlite.models.MoviesModel
 import com.example.actorsdatabaseapp.ui.adapters.ActorsAdapter
 
 
@@ -84,7 +84,7 @@ class ActorsFragment : Fragment() {
                         deleteActor(actor)
                     }
                     ActorsAdapter.ActionEnum.ACTION_ADD_MOVIE -> {
-                        showAddMovieDialog(id)
+                        showAddMovieDialog(actor.id)
                     }
                 }
                 actorsAdapter.updateData(getItemsList())
@@ -128,12 +128,12 @@ class ActorsFragment : Fragment() {
             findViewById<TextView>(R.id.actorIdInDialogTV).setText(id.toString())
 
             findViewById<Button>(R.id.addMovieDialogButton).setOnClickListener {
-                val actorId = findViewById<TextView>(R.id.actorIdInDialogTV).toString()
+                val actorId = findViewById<TextView>(R.id.actorIdInDialogTV)
                 val movieName = findViewById<EditText>(R.id.movieNameEditText).text.toString()
                 val imdbRate = findViewById<EditText>(R.id.imdbRateEditText).text.toString()
                 sqLiteHelper.addMovie(
                     MoviesModel(
-                        actorId = actorId.toInt(),
+                        actorId = id,
                         name = movieName,
                         imdbRate = imdbRate.toInt()
                     )

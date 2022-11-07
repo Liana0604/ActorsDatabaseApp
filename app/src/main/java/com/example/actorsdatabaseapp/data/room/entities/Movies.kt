@@ -9,5 +9,5 @@ data class Movies(
     val id: Int? = null,
     val name: String,
     val imdbRate: Int,
-    val actorName: String
+    val actorId: Int
 )

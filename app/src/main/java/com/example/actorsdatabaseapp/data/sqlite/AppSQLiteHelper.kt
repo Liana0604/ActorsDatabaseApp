@@ -5,16 +5,16 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
-import com.example.actorsdatabaseapp.data.models.ActorsModel
-import com.example.actorsdatabaseapp.data.models.ActorsMoviesModel
-import com.example.actorsdatabaseapp.data.models.MoviesModel
+import com.example.actorsdatabaseapp.data.sqlite.models.ActorsModel
+import com.example.actorsdatabaseapp.data.sqlite.models.ActorsMoviesModel
+import com.example.actorsdatabaseapp.data.sqlite.models.MoviesModel
 import com.example.actorsdatabaseapp.data.sqlite.entities.ActorEntity
 import com.example.actorsdatabaseapp.data.sqlite.entities.MovieEntity
 
 class AppSQLiteHelper(private val context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2
         private const val DATABASE_NAME = "actors_db"
     }
 

@@ -6,8 +6,8 @@ import androidx.room.Relation
 data class ActorWithMovies(
     @Embedded val actor: Actors,
     @Relation(
-        parentColumn = "actors_name",
-        entityColumn = "actors_name"
+        parentColumn = "name",
+        entityColumn = "name"
     )
-    val movies: List<Movies>
+    val movies: MutableList<Movies>
 )

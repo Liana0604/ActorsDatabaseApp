@@ -4,37 +4,37 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.actorsdatabaseapp.data.room.entities.Actors
+import com.example.actorsdatabaseapp.data.room.entities.ActorWithMovies
+import com.example.actorsdatabaseapp.data.room.entities.Movies
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ActorsViewModel(application: Application) : AndroidViewModel(application) {
+class MoviesViewModel(application: Application) : AndroidViewModel(application) {
 
-    var getActorsData: LiveData<MutableList<Actors>>
+    private val getActorsWithMoviesData: LiveData<MutableList<ActorWithMovies>>
     private val repository: ActorsRepository
 
     init {
         val actorsDao = ActorsDataBase.getActorsDatabase(application).actorsDao()
         repository = ActorsRepository(actorsDao)
-        getActorsData = repository.getActorsData
+        getActorsWithMoviesData = repository.getActorsWithMoviesData
     }
 
-
-    fun addActor(actor: Actors) {
+    fun addMovie(movie: Movies) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.addActor(actor)
+            repository.addMovies(movie)
         }
     }
 
-    fun deleteActor(actor: Actors) {
+    fun deleteMovie(movie: Movies) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteActor(actor)
+            repository.deleteMovie(movie)
         }
     }
 
-    fun deleteAllActor() {
+    fun deleteAllMovies() {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteAllActors()
+            repository.deleteAllMovies()
         }
     }
 }
