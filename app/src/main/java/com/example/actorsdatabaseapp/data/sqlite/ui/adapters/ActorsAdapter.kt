@@ -31,7 +31,6 @@ class ActorsAdapter(private val itemClickListener: (ActionEnum, ActorsModel) -> 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) =
         holder.bind(actors[position])
 
-
     override fun getItemCount() = actors.size
 
     @SuppressLint("NotifyDataSetChanged")
@@ -58,6 +57,7 @@ class ActorsAdapter(private val itemClickListener: (ActionEnum, ActorsModel) -> 
 
         override fun bind(item: ActorsModel) {
             item.let {
+                binding.petsNameTextView.text = item.pets.toString()
                 binding.actorsNameTextView.text = item.name
                 binding.actorsSurnameTextView.text = item.surname
                 binding.actorsAgeTextView.text = item.age.toString()

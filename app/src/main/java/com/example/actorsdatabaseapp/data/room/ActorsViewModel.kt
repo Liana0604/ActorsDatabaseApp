@@ -43,9 +43,9 @@ class ActorsViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun deleteAllActor() {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteAllActors()
-        }
-    }
+//    fun deleteAllActor() {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            repository.deleteAllActors()
+//        }
+//    }
 }

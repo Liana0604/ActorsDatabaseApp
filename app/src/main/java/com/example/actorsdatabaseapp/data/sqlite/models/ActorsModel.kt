@@ -6,5 +6,5 @@ data class ActorsModel(
     val name: String,
     val surname: String,
     val age: Int,
-//    val pets : ArrayList<Pet>
+    val pets: ArrayList<Pet>
 )

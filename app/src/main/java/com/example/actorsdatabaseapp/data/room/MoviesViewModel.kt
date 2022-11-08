@@ -20,11 +20,11 @@ class MoviesViewModel(application: Application) : AndroidViewModel(application) 
         getActorsWithMoviesData = repository.getActorsWithMoviesData
     }
 
-    fun addMovie(movie: Movies) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.addMovies(movie)
-        }
-    }
+//    fun addMovie(movie: Movies) {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            repository.addMovies(movie)
+//        }
+//    }
 
     fun deleteMovie(movie: Movies) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -32,9 +32,9 @@ class MoviesViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    fun deleteAllMovies() {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteAllMovies()
-        }
-    }
+//    fun deleteAllMovies() {
+//        viewModelScope.launch(Dispatchers.IO) {
+//            repository.deleteAllMovies()
+//        }
+//    }
 }

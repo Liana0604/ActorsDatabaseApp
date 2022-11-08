@@ -5,11 +5,12 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
+import com.example.actorsdatabaseapp.data.sqlite.entities.ActorEntity
+import com.example.actorsdatabaseapp.data.sqlite.entities.MovieEntity
 import com.example.actorsdatabaseapp.data.sqlite.models.ActorsModel
 import com.example.actorsdatabaseapp.data.sqlite.models.ActorsMoviesModel
 import com.example.actorsdatabaseapp.data.sqlite.models.MoviesModel
-import com.example.actorsdatabaseapp.data.sqlite.entities.ActorEntity
-import com.example.actorsdatabaseapp.data.sqlite.entities.MovieEntity
+import com.example.actorsdatabaseapp.data.sqlite.models.Pet
 
 class AppSQLiteHelper(private val context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -39,11 +40,10 @@ class AppSQLiteHelper(private val context: Context) :
         var result = -1L
         val db = this.writableDatabase
         val contentValues = ContentValues()
-        //  contentValues.put(ActorEntity.ID, actor.id)
         contentValues.put(ActorEntity.NAME, actor.name)
         contentValues.put(ActorEntity.SURNAME, actor.surname)
         contentValues.put(ActorEntity.AGE, actor.age)
-        //     contentValues.put(ActorEntity.PET, actor.pets.toString())
+        contentValues.put(ActorEntity.PET, actor.pets.toString())
         try {
             result = db.insert(ActorEntity.TABLE_NAME, null, contentValues)
         } catch (e: Exception) {
@@ -58,7 +58,6 @@ class AppSQLiteHelper(private val context: Context) :
         var result = -1L
         val db = this.writableDatabase
         val contentValues = ContentValues()
-        //  contentValues.put(MovieEntity.ID, movie.id)
         contentValues.put(MovieEntity.NAME, movie.name)
         contentValues.put(MovieEntity.IMDBRATE, movie.imdbRate)
         contentValues.put(MovieEntity.ACTOR_ID, movie.actorId)
@@ -72,39 +71,35 @@ class AppSQLiteHelper(private val context: Context) :
         return result
     }
 
-    fun updateActor(actor: ActorsModel): Int {
-        // var result = -1
-        val db = this.writableDatabase
-        val contentValues = ContentValues()
-        // contentValues.put(ActorEntity.ID, actor.id)
-        contentValues.put(ActorEntity.NAME, actor.name)
-        contentValues.put(ActorEntity.SURNAME, actor.surname)
-        contentValues.put(ActorEntity.AGE, actor.age)
-        //     contentValues.put(ActorEntity.PET, actor.pets.toString())
+//    fun updateActor(actor: ActorsModel): Int {
+//        val db = this.writableDatabase
+//        val contentValues = ContentValues()
+//        contentValues.put(ActorEntity.NAME, actor.name)
+//        contentValues.put(ActorEntity.SURNAME, actor.surname)
+//        contentValues.put(ActorEntity.AGE, actor.age)
+//        contentValues.put(ActorEntity.PET, actor.pets.toString())
+//
+//        val whereClause = "${ActorEntity.ID} = ?"
+//        val whereArgs = arrayOf("${actor.id}")
+//        val result = db.update(ActorEntity.TABLE_NAME, contentValues, whereClause, whereArgs)
+//
+//        db.close()
+//        return result
+//    }
 
-        val whereClause = "${ActorEntity.ID} = ?"
-        val whereArgs = arrayOf("${actor.id}")
-        val result = db.update(ActorEntity.TABLE_NAME, contentValues, whereClause, whereArgs)
-
-        db.close()
-        return result
-    }
-
-    fun updateMovie(movie: MoviesModel): Int {
-        //  var result = -1
-        val db = this.writableDatabase
-        val contentValues = ContentValues()
-        //   contentValues.put(MovieEntity.ID, movie.id)
-        contentValues.put(MovieEntity.NAME, movie.name)
-        contentValues.put(MovieEntity.IMDBRATE, movie.imdbRate)
-        contentValues.put(MovieEntity.ACTOR_ID, movie.actorId)
-        val whereClause = "${MovieEntity.ID} = ?"
-        val whereArgs = arrayOf("${movie.id}")
-        val result = db.update(MovieEntity.TABLE_NAME, contentValues, whereClause, whereArgs)
-
-        db.close()
-        return result
-    }
+//    fun updateMovie(movie: MoviesModel): Int {
+//        val db = this.writableDatabase
+//        val contentValues = ContentValues()
+//        contentValues.put(MovieEntity.NAME, movie.name)
+//        contentValues.put(MovieEntity.IMDBRATE, movie.imdbRate)
+//        contentValues.put(MovieEntity.ACTOR_ID, movie.actorId)
+//        val whereClause = "${MovieEntity.ID} = ?"
+//        val whereArgs = arrayOf("${movie.id}")
+//        val result = db.update(MovieEntity.TABLE_NAME, contentValues, whereClause, whereArgs)
+//
+//        db.close()
+//        return result
+//    }
 
     fun getActors(): ArrayList<ActorsModel> {
         val actorList: ArrayList<ActorsModel> = ArrayList()
@@ -121,11 +116,10 @@ class AppSQLiteHelper(private val context: Context) :
                         val surname =
                             cursor.getString(cursor.getColumnIndexOrThrow(ActorEntity.SURNAME))
                         val age = cursor.getInt(cursor.getColumnIndexOrThrow(ActorEntity.AGE))
-                        //  val pet = cursor.getString(cursor.getColumnIndexOrThrow(ActorEntity.PET))
+                        val pet = cursor.getString(cursor.getColumnIndexOrThrow(ActorEntity.PET))
                         actorList.add(
                             ActorsModel(
-                                id, name, surname, age
-                                //  pets = arrayListOf(Pet(pet,age, isSmart = true))
+                                id, name, surname, age, arrayListOf(Pet(pet, age, true))
                             )
                         )
                     } while (cursor.moveToNext())
@@ -136,37 +130,6 @@ class AppSQLiteHelper(private val context: Context) :
         }
         return actorList
     }
-
-    fun getActor(): ActorsModel {
-        var id = 0
-        var name = ""
-        var surname = ""
-        var age = 0
-        var actor = ActorsModel(id, name, surname, age)
-        val db = this.readableDatabase
-        val selectQuery = "SELECT * FROM ${ActorEntity.TABLE_NAME} WHERE ${ActorEntity.ID} = $id "
-
-        val cursor = db.rawQuery(selectQuery, null)
-        cursor?.let {
-            if (cursor.columnCount > 0) {
-                if (cursor.moveToFirst()) {
-                    do {
-                        id = cursor.getInt((cursor.getColumnIndexOrThrow(ActorEntity.ID)))
-                        name = cursor.getString(cursor.getColumnIndexOrThrow(ActorEntity.NAME))
-                        surname =
-                            cursor.getString(cursor.getColumnIndexOrThrow(ActorEntity.SURNAME))
-                        age = cursor.getInt(cursor.getColumnIndexOrThrow(ActorEntity.AGE))
-                        actor = ActorsModel(id, name, surname, age)
-                        //  val pet = cursor.getString(cursor.getColumnIndexOrThrow(ActorEntity.PET))
-                    } while (cursor.moveToNext())
-                }
-            }
-            cursor.close()
-            db.close()
-        }
-        return actor
-    }
-
 
     fun getMovie(): ArrayList<ActorsMoviesModel> {
         val moviesList = ArrayList<ActorsMoviesModel>()
@@ -210,10 +173,7 @@ class AppSQLiteHelper(private val context: Context) :
     }
 
     fun deleteactor(actor: ActorsModel): Int {
-        //  var result = -1
         val db = this.writableDatabase
-        // val contentValues = ContentValues()
-        // contentValues.put(ActorEntity.ID,actor.id)
         val whereClause = "${ActorEntity.ID} = ?"
         val whereArgs = arrayOf("${actor.id}")
         val result = db.delete(ActorEntity.TABLE_NAME, whereClause, whereArgs)
@@ -223,10 +183,7 @@ class AppSQLiteHelper(private val context: Context) :
     }
 
     fun deleteMovie(movie: MoviesModel): Int {
-        //  var result = -1
         val db = this.writableDatabase
-//        val contentValues = ContentValues()
-//        contentValues.put(ActorEntity.ID,movie.id)
         val whereClause = "${MovieEntity.ID} = ?"
         val whereArgs = arrayOf("${movie.id}")
         val result = db.delete(MovieEntity.TABLE_NAME, whereClause, whereArgs)

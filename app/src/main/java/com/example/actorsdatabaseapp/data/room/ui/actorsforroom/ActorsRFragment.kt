@@ -105,7 +105,6 @@ class ActorsRFragment : Fragment() {
             setContentView(R.layout.dialog_add_movie)
             findViewById<TextView>(R.id.actorIdInDialogTV).setText(id.toString())
             findViewById<Button>(R.id.addMovieDialogButton).setOnClickListener {
-               // val actorId = findViewById<TextView>(R.id.actorIdInDialogTV)
                 val movieName = findViewById<EditText>(R.id.movieNameEditText).text.toString()
                 val imdbRate = findViewById<EditText>(R.id.imdbRateEditText).text.toString()
                 actorsViewModel.addMovie(

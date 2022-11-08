@@ -16,6 +16,7 @@ import com.example.actorsdatabaseapp.R
 import com.example.actorsdatabaseapp.data.sqlite.AppSQLiteHelper
 import com.example.actorsdatabaseapp.data.sqlite.models.ActorsModel
 import com.example.actorsdatabaseapp.data.sqlite.models.MoviesModel
+import com.example.actorsdatabaseapp.data.sqlite.models.Pet
 import com.example.actorsdatabaseapp.data.sqlite.ui.adapters.ActorsAdapter
 import com.example.actorsdatabaseapp.databinding.FragmentActorsBinding
 
@@ -47,22 +48,22 @@ class ActorsFragment : Fragment() {
         val actorName = binding.nameEditText.text.toString()
         val actorSurname = binding.surnameEditText.text.toString()
         val actorAge = binding.ageEditText.text.toString()
-//        val petName = binding.petNameEditText.text.toString()
-//        val petAge = binding.petAgeEditText.text.toString()
-//        val petIsSmart = binding.isSmartSwitcher
+        val petName = binding.petNameEditText.text.toString()
+        val petAge = binding.petAgeEditText.text.toString()
+        val petIsSmart = binding.isSmartCheckBox
+        val pet = Pet(petName, petAge.toInt(), petIsSmart.isChecked)
+        val petList = ArrayList<Pet>()
+        petList.add(pet)
         if (actorName.isNotEmpty() && actorSurname.isNotEmpty() && actorAge.isNotEmpty()) {
-            val actor = ActorsModel(
-                name = actorName, surname = actorSurname, age = actorAge.toInt(),
-                //    pets = arrayListOf()
-            )
+            val actor = ActorsModel(0, actorName, actorSurname, actorAge.toInt(), petList)
             val result = sqLiteHelper.addActor(actor)
             if (result > -1) {
                 Toast.makeText(requireContext(), "Record is saved", Toast.LENGTH_LONG).show()
                 binding.nameEditText.text.clear()
                 binding.surnameEditText.text.clear()
                 binding.ageEditText.text.clear()
-//                binding.petNameEditText.text.clear()
-//                binding.petAgeEditText.text.clear()
+                binding.petNameEditText.text.clear()
+                binding.petAgeEditText.text.clear()
 
                 setUpListOfActorsIntoRecyclerView()
             }
@@ -106,7 +107,7 @@ class ActorsFragment : Fragment() {
         builder.setTitle("Delete Record")
         builder.setMessage("Are you sure you want to delete ${actor.id}")
         builder.setPositiveButton("Yes") { dialogInterface, _ ->
-            val result = sqLiteHelper.deleteactor(ActorsModel(actor.id, "", "", 0))
+            val result = sqLiteHelper.deleteactor(ActorsModel(actor.id, "", "", 0, arrayListOf()))
             if (result > -1) {
                 Toast.makeText(requireContext(), "Record deleted successfully.", Toast.LENGTH_LONG)
                     .show()
@@ -117,9 +118,7 @@ class ActorsFragment : Fragment() {
         builder.setNegativeButton("No") { dialogInterface, _ ->
             dialogInterface.dismiss()
         }
-        val alertDialog: AlertDialog = builder.create()
-        alertDialog.setCancelable(false)
-        alertDialog.show()
+        builder.create().show()
     }
 
     private fun showAddMovieDialog(id: Int) {
@@ -128,7 +127,6 @@ class ActorsFragment : Fragment() {
             findViewById<TextView>(R.id.actorIdInDialogTV).setText(id.toString())
 
             findViewById<Button>(R.id.addMovieDialogButton).setOnClickListener {
-                val actorId = findViewById<TextView>(R.id.actorIdInDialogTV)
                 val movieName = findViewById<EditText>(R.id.movieNameEditText).text.toString()
                 val imdbRate = findViewById<EditText>(R.id.imdbRateEditText).text.toString()
                 sqLiteHelper.addMovie(

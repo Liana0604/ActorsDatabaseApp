@@ -11,7 +11,6 @@ interface ActorsDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addActor(actor: Actors)
 
-    //
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun addMovie(movie: Movies)
 

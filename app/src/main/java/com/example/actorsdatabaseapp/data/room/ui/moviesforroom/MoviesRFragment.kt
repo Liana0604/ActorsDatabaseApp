@@ -28,7 +28,7 @@ class MoviesRFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        movieAdapter = MoviesRAdapter() { action, movie ->
+        movieAdapter = MoviesRAdapter { action, movie ->
             when (action) {
                 MoviesRAdapter.ActionEnum.DELETE -> {
                     deleteMovie(movie)

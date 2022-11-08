@@ -64,7 +64,7 @@ class ActorsRAdapter(private val itemClickListener: (ActionEnum, Actors) -> Unit
                 item.pets.forEach {
                     binding.petsNameTextView.text = it.name
                     binding.petsAgeTextView.text = it.age.toString()
-                    binding.petsAgeTextView.text = it.isSmart.toString()
+                    binding.petIsSmartTextView.text = it.isSmart.toString()
                 }
                 binding.actorsNameTextView.text = item.name
                 binding.actorsSurnameTextView.text = item.surname
