@@ -71,9 +71,7 @@ class MoviesFragment : Fragment() {
         builder.setNegativeButton("No") { dialogInterface, _ ->
             dialogInterface.dismiss()
         }
-        val alertDialog: AlertDialog = builder.create()
-        alertDialog.setCancelable(false)
-        alertDialog.show()
+        builder.create().show()
     }
 
 }

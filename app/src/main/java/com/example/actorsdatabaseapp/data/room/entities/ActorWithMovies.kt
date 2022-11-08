@@ -8,7 +8,6 @@ data class ActorWithMovies(
     @Relation(
         parentColumn = "id",
         entityColumn = "actor_id",
-        entity = Movies::class
     )
     val movies: MutableList<Movies>
 )

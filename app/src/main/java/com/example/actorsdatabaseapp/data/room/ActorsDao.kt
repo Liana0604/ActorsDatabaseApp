@@ -38,5 +38,3 @@ interface ActorsDao {
     fun getActorsWithMoviesData(): LiveData<MutableList<ActorWithMovies>>
 
 }
-
-//WHERE name = :actorName

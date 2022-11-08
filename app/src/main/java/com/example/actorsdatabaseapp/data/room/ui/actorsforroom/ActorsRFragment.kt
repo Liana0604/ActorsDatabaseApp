@@ -15,7 +15,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.actorsdatabaseapp.R
 import com.example.actorsdatabaseapp.data.room.ActorsViewModel
-import com.example.actorsdatabaseapp.data.room.MoviesViewModel
 import com.example.actorsdatabaseapp.data.room.entities.Actors
 import com.example.actorsdatabaseapp.data.room.entities.Movies
 import com.example.actorsdatabaseapp.data.room.ui.adapter.ActorsRAdapter
@@ -25,7 +24,6 @@ import com.example.actorsdatabaseapp.databinding.FragmentActorsRBinding
 class ActorsRFragment : Fragment() {
     private lateinit var binding: FragmentActorsRBinding
     private lateinit var actorsViewModel: ActorsViewModel
-    private lateinit var moviesViewModel: MoviesViewModel
     private lateinit var actorsAdapter: ActorsRAdapter
 
     override fun onCreateView(
@@ -34,7 +32,6 @@ class ActorsRFragment : Fragment() {
     ): View {
         binding = FragmentActorsRBinding.inflate(layoutInflater)
         actorsViewModel = ViewModelProvider(this)[ActorsViewModel::class.java]
-        moviesViewModel = ViewModelProvider(this)[MoviesViewModel::class.java]
         return binding.root
     }
 
@@ -69,10 +66,8 @@ class ActorsRFragment : Fragment() {
         val petAge = binding.petAgeEditText.text.toString()
         val petIsSmartCheckBox = binding.isSmartCheckBox
         val pet = Pet(petName, petAge.toInt(), petIsSmartCheckBox.isChecked)
-
         val petList = ArrayList<Pet>()
         petList.add(pet)
-
         if (actorsName.isNotEmpty() && actorsSurname.isNotEmpty() && actorsAge.isNotEmpty()) {
             val actor = Actors(0, actorsName, actorsSurname, actorsAge.toInt(), petList)
             actorsViewModel.addActor(actor)
@@ -109,9 +104,8 @@ class ActorsRFragment : Fragment() {
         Dialog(requireActivity()).apply {
             setContentView(R.layout.dialog_add_movie)
             findViewById<TextView>(R.id.actorIdInDialogTV).setText(id.toString())
-
             findViewById<Button>(R.id.addMovieDialogButton).setOnClickListener {
-                val actorId = findViewById<TextView>(R.id.actorIdInDialogTV)
+               // val actorId = findViewById<TextView>(R.id.actorIdInDialogTV)
                 val movieName = findViewById<EditText>(R.id.movieNameEditText).text.toString()
                 val imdbRate = findViewById<EditText>(R.id.imdbRateEditText).text.toString()
                 actorsViewModel.addMovie(

@@ -17,7 +17,6 @@ class MoviesRFragment : Fragment() {
     private lateinit var moviesViewModel: MoviesViewModel
     private lateinit var movieAdapter: MoviesRAdapter
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
