@@ -47,18 +47,21 @@ class ActorsRAdapter(private val itemClickListener: (ActionEnum, Actors) -> Unit
         ActorsRAdapter.BaseViewHolder(binding.root) {
         init {
             binding.deleteIconButton.setOnClickListener {
-                itemClickListener(ActionEnum.ACTION_DELETE, actors[adapterPosition])
-                binding.addIconButton.setOnClickListener {
-                    itemClickListener(
-                        ActionEnum.ACTION_ADD_MOVIE,
-                        actors[adapterPosition]
-                    )
-                }
+                itemClickListener(
+                    ActionEnum.ACTION_DELETE,
+                    actors[adapterPosition]
+                )
+            }
+            binding.addIconButton.setOnClickListener {
+                itemClickListener(
+                    ActionEnum.ACTION_ADD_MOVIE, actors[adapterPosition]
+                )
             }
         }
 
         override fun bind(item: Actors) {
             item.let {
+                binding.petsListTextView.text = item.pets.toString()
                 binding.actorsNameTextView.text = item.name
                 binding.actorsSurnameTextView.text = item.surname
                 binding.actorsAgeTextView.text = item.age.toString()

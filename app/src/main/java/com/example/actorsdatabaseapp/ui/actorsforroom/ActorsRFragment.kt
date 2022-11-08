@@ -19,6 +19,7 @@ import com.example.actorsdatabaseapp.data.room.ActorsViewModel
 import com.example.actorsdatabaseapp.data.room.entities.Actors
 import com.example.actorsdatabaseapp.data.sqlite.models.ActorsModel
 import com.example.actorsdatabaseapp.data.sqlite.models.MoviesModel
+import com.example.actorsdatabaseapp.data.sqlite.models.Pet
 import com.example.actorsdatabaseapp.databinding.FragmentActorsRBinding
 import com.example.actorsdatabaseapp.ui.adapters.ActorsAdapter
 import com.example.actorsdatabaseapp.ui.adapters.ActorsRAdapter
@@ -67,8 +68,18 @@ class ActorsRFragment : Fragment() {
         val actorsName = binding.nameEditText.text.toString()
         val actorsSurname = binding.surnameEditText.text.toString()
         val actorsAge = binding.ageEditText.text.toString()
+        val petName = binding.petNameEditText.text.toString()
+        val petAge = binding.petAgeEditText.text.toString()
+        val petIsSmart = binding.isSmartSwitcher
+//        petIsSmart.setOnCheckedChangeListener { compoundButton, b ->
+//            if ()
+//        }
+        val pet = Pet(petName, petAge, petIsSmart)
+        val petList = ArrayList<Pet>()
+        petList.add(pet)
+
         if (actorsName.isNotEmpty() && actorsSurname.isNotEmpty() && actorsAge.isNotEmpty()) {
-            val actor = Actors(0, actorsName, actorsSurname, actorsAge.toInt())
+            val actor = Actors(0, actorsName, actorsSurname, actorsAge.toInt(), petList)
             actorsViewModel.addActor(actor)
             Toast.makeText(requireContext(), "Record is saved", Toast.LENGTH_LONG).show()
         } else {

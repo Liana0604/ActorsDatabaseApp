@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/_24dp"
         android:hint="@string/pet_name"
-        app:layout_constraintBottom_toTopOf="@id/moviesIdEditText"
+        app:layout_constraintBottom_toTopOf="@id/addActorButton"
         app:layout_constraintEnd_toStartOf="@+id/petAgeEditText"
         app:layout_constraintStart_toStartOf="@id/ageEditText"
         app:layout_constraintTop_toBottomOf="@id/ageEditText" />
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:hint="@string/pet_age"
-        app:layout_constraintBottom_toTopOf="@+id/moviesIdEditText"
+        app:layout_constraintBottom_toTopOf="@+id/addActorButton"
         app:layout_constraintStart_toEndOf="@id/petNameEditText"
         app:layout_constraintTop_toBottomOf="@id/ageEditText"
         app:layout_constraintVertical_bias="0.0" />
@@ -66,15 +66,6 @@
         app:layout_constraintStart_toEndOf="@id/petAgeEditText"
         app:layout_constraintTop_toBottomOf="@id/ageEditText" />
 
-    <EditText
-        android:id="@+id/moviesIdEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/movies"
-        app:layout_constraintBottom_toTopOf="@id/addActorButton"
-        app:layout_constraintStart_toStartOf="@id/petNameEditText"
-        app:layout_constraintTop_toBottomOf="@id/petNameEditText" />
-
     <Button
         android:id="@+id/addActorButton"
         android:layout_width="wrap_content"
@@ -83,7 +74,7 @@
         android:textAllCaps="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/moviesIdEditText" />
+        app:layout_constraintTop_toBottomOf="@id/isSmartSwitcher" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/actorsRecyclerView"

@@ -4,6 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverter
 import com.example.actorsdatabaseapp.data.sqlite.models.Pet
+import com.google.gson.Gson
 
 @Entity(tableName = "actors_table")
 data class Actors(
@@ -12,10 +13,13 @@ data class Actors(
     val name: String?,
     val surname: String?,
     val age: Int?,
-    // val pets : List<Pet>
+    val pets: List<Pet>
 )
 
 class PetsTypConverter {
     @TypeConverter
     fun listToJson(value: List<Pet>?) = Gson().toJson(value)
+
+    @TypeConverter
+    fun jsonToList(value: String) = Gson().fromJson(value, Array<Pet>::class.java).toList()
 }
