@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.BaseActivityForRoom">
+    tools:context=".data.sqlite.ui.BaseActivityForRoom">
 
     <TextView
         android:id="@+id/titleTextView"
@@ -23,7 +23,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"
-        android:name="com.example.actorsdatabaseapp.ui.actorsforroom.ActorsRFragment"
+        android:name="com.example.actorsdatabaseapp.data.room.ui.actorsforroom.ActorsRFragment"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_0dp"
         android:layout_above="@id/bottomNavigationView"

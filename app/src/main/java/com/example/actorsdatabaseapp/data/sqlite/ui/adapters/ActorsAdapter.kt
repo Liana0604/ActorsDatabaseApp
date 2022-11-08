@@ -1,4 +1,4 @@
-package com.example.actorsdatabaseapp.ui.adapters
+package com.example.actorsdatabaseapp.data.sqlite.ui.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.actorsdatabaseapp.databinding.ItemActorLayoutBinding
 import com.example.actorsdatabaseapp.data.sqlite.models.ActorsModel
+import com.example.actorsdatabaseapp.databinding.ItemActorLayoutBinding
 
 class ActorsAdapter(private val itemClickListener: (ActionEnum, ActorsModel) -> Unit) :
     RecyclerView.Adapter<ActorsAdapter.BaseViewHolder>() {

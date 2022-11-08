@@ -1,9 +1,8 @@
-package com.example.actorsdatabaseapp.ui.actors
+package com.example.actorsdatabaseapp.data.sqlite.ui.actors
 
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +10,14 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.actorsdatabaseapp.MyApplication
 import com.example.actorsdatabaseapp.R
-import com.example.actorsdatabaseapp.databinding.FragmentActorsBinding
-import com.example.actorsdatabaseapp.data.sqlite.models.ActorsModel
 import com.example.actorsdatabaseapp.data.sqlite.AppSQLiteHelper
+import com.example.actorsdatabaseapp.data.sqlite.models.ActorsModel
 import com.example.actorsdatabaseapp.data.sqlite.models.MoviesModel
-import com.example.actorsdatabaseapp.ui.adapters.ActorsAdapter
+import com.example.actorsdatabaseapp.data.sqlite.ui.adapters.ActorsAdapter
+import com.example.actorsdatabaseapp.databinding.FragmentActorsBinding
 
 
 class ActorsFragment : Fragment() {

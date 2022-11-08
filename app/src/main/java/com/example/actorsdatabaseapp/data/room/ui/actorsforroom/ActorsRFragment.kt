@@ -1,9 +1,8 @@
-package com.example.actorsdatabaseapp.ui.actorsforroom
+package com.example.actorsdatabaseapp.data.room.ui.actorsforroom
 
 import android.app.AlertDialog
 import android.app.Dialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,23 +10,22 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.navArgs
 import com.example.actorsdatabaseapp.R
 import com.example.actorsdatabaseapp.data.room.ActorsViewModel
+import com.example.actorsdatabaseapp.data.room.MoviesViewModel
 import com.example.actorsdatabaseapp.data.room.entities.Actors
-import com.example.actorsdatabaseapp.data.sqlite.models.ActorsModel
-import com.example.actorsdatabaseapp.data.sqlite.models.MoviesModel
+import com.example.actorsdatabaseapp.data.room.entities.Movies
+import com.example.actorsdatabaseapp.data.room.ui.adapter.ActorsRAdapter
 import com.example.actorsdatabaseapp.data.sqlite.models.Pet
 import com.example.actorsdatabaseapp.databinding.FragmentActorsRBinding
-import com.example.actorsdatabaseapp.ui.adapters.ActorsAdapter
-import com.example.actorsdatabaseapp.ui.adapters.ActorsRAdapter
-import kotlinx.coroutines.supervisorScope
 
 class ActorsRFragment : Fragment() {
     private lateinit var binding: FragmentActorsRBinding
     private lateinit var actorsViewModel: ActorsViewModel
+    private lateinit var moviesViewModel: MoviesViewModel
     private lateinit var actorsAdapter: ActorsRAdapter
 
     override fun onCreateView(
@@ -36,7 +34,7 @@ class ActorsRFragment : Fragment() {
     ): View {
         binding = FragmentActorsRBinding.inflate(layoutInflater)
         actorsViewModel = ViewModelProvider(this)[ActorsViewModel::class.java]
-
+        moviesViewModel = ViewModelProvider(this)[MoviesViewModel::class.java]
         return binding.root
     }
 
@@ -48,10 +46,10 @@ class ActorsRFragment : Fragment() {
         actorsAdapter = ActorsRAdapter { action, actor ->
             when (action) {
                 ActorsRAdapter.ActionEnum.ACTION_DELETE -> {
-                    deletActor(actor)
+                    deleteActor(actor)
                 }
                 ActorsRAdapter.ActionEnum.ACTION_ADD_MOVIE -> {
-                    //  showAddMovieDialog(id)
+                    showAddMovieDialog(actor.id)
                 }
             }
         }
@@ -61,7 +59,6 @@ class ActorsRFragment : Fragment() {
         actorsViewModel.getActorsData.observe(viewLifecycleOwner, Observer { actor ->
             actorsAdapter.setData(actor)
         })
-
     }
 
     private fun insertDataIntoDatabase() {
@@ -70,11 +67,9 @@ class ActorsRFragment : Fragment() {
         val actorsAge = binding.ageEditText.text.toString()
         val petName = binding.petNameEditText.text.toString()
         val petAge = binding.petAgeEditText.text.toString()
-        val petIsSmart = binding.isSmartSwitcher
-//        petIsSmart.setOnCheckedChangeListener { compoundButton, b ->
-//            if ()
-//        }
-        val pet = Pet(petName, petAge, petIsSmart)
+        val petIsSmartCheckBox = binding.isSmartCheckBox
+        val pet = Pet(petName, petAge.toInt(), petIsSmartCheckBox.isChecked)
+
         val petList = ArrayList<Pet>()
         petList.add(pet)
 
@@ -82,6 +77,11 @@ class ActorsRFragment : Fragment() {
             val actor = Actors(0, actorsName, actorsSurname, actorsAge.toInt(), petList)
             actorsViewModel.addActor(actor)
             Toast.makeText(requireContext(), "Record is saved", Toast.LENGTH_LONG).show()
+            binding.nameEditText.text.clear()
+            binding.surnameEditText.text.clear()
+            binding.ageEditText.text.clear()
+            binding.petNameEditText.text.clear()
+            binding.petAgeEditText.text.clear()
         } else {
             Toast.makeText(
                 requireContext(),
@@ -91,7 +91,7 @@ class ActorsRFragment : Fragment() {
         }
     }
 
-    private fun deletActor(actor: Actors) {
+    private fun deleteActor(actor: Actors) {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Delete Record")
         builder.setMessage("Are you sure you want to delete this actor")
@@ -103,9 +103,6 @@ class ActorsRFragment : Fragment() {
             dialogInterface.dismiss()
         }
         builder.create().show()
-//        val alertDialog: AlertDialog = builder.create()
-//        alertDialog.setCancelable(false)
-//        alertDialog.show()
     }
 
     private fun showAddMovieDialog(id: Int) {
@@ -117,7 +114,13 @@ class ActorsRFragment : Fragment() {
                 val actorId = findViewById<TextView>(R.id.actorIdInDialogTV)
                 val movieName = findViewById<EditText>(R.id.movieNameEditText).text.toString()
                 val imdbRate = findViewById<EditText>(R.id.imdbRateEditText).text.toString()
-
+                actorsViewModel.addMovie(
+                    Movies(
+                        actorId = id,
+                        name = movieName,
+                        imdbRate = imdbRate.toInt()
+                    )
+                )
                 Toast.makeText(requireContext(), "New Movie Added", Toast.LENGTH_SHORT).show()
                 dismiss()
             }

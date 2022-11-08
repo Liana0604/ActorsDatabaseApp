@@ -1,4 +1,4 @@
-package com.example.actorsdatabaseapp.ui.adapters
+package com.example.actorsdatabaseapp.data.room.ui.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -24,10 +24,10 @@ class ActorsRAdapter(private val itemClickListener: (ActionEnum, Actors) -> Unit
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ActorsRAdapter.BaseViewHolder =
+    ): BaseViewHolder =
         ActorItemViewHolder(ItemActorLayoutBinding.inflate(layoutInflater, parent, false))
 
-    override fun onBindViewHolder(holder: ActorsRAdapter.BaseViewHolder, position: Int) =
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) =
         holder.bind(actors[position])
 
 
@@ -44,7 +44,7 @@ class ActorsRAdapter(private val itemClickListener: (ActionEnum, Actors) -> Unit
     }
 
     inner class ActorItemViewHolder(private var binding: ItemActorLayoutBinding) :
-        ActorsRAdapter.BaseViewHolder(binding.root) {
+        BaseViewHolder(binding.root) {
         init {
             binding.deleteIconButton.setOnClickListener {
                 itemClickListener(
@@ -61,7 +61,11 @@ class ActorsRAdapter(private val itemClickListener: (ActionEnum, Actors) -> Unit
 
         override fun bind(item: Actors) {
             item.let {
-                binding.petsListTextView.text = item.pets.toString()
+                item.pets.forEach {
+                    binding.petsNameTextView.text = it.name
+                    binding.petsAgeTextView.text = it.age.toString()
+                    binding.petsAgeTextView.text = it.isSmart.toString()
+                }
                 binding.actorsNameTextView.text = item.name
                 binding.actorsSurnameTextView.text = item.surname
                 binding.actorsAgeTextView.text = item.age.toString()

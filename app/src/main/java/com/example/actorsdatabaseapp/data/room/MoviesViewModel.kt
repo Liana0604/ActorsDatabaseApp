@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class MoviesViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val getActorsWithMoviesData: LiveData<MutableList<ActorWithMovies>>
+    val getActorsWithMoviesData: LiveData<MutableList<ActorWithMovies>>
     private val repository: ActorsRepository
 
     init {

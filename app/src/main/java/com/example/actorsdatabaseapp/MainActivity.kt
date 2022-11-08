@@ -1,13 +1,13 @@
 package com.example.actorsdatabaseapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import com.example.actorsdatabaseapp.data.sqlite.ui.BaseActivity
+import com.example.actorsdatabaseapp.data.sqlite.ui.BaseActivityForRoom
 import com.example.actorsdatabaseapp.databinding.ActivityMainBinding
-import com.example.actorsdatabaseapp.ui.BaseActivity
-import com.example.actorsdatabaseapp.ui.BaseActivityForRoom
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityMainBinding
@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             button.setOnClickListener(this)
         }
     }
-
 
     override fun onClick(p0: View?) {
         when (p0?.tag as DataBaseEnum) {

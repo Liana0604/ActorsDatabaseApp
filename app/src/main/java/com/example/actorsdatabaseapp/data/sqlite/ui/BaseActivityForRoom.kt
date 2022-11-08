@@ -1,12 +1,12 @@
-package com.example.actorsdatabaseapp.ui
+package com.example.actorsdatabaseapp.data.sqlite.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.actorsdatabaseapp.R
+import com.example.actorsdatabaseapp.data.room.ui.actorsforroom.ActorsRFragment
+import com.example.actorsdatabaseapp.data.room.ui.moviesforroom.MoviesRFragment
 import com.example.actorsdatabaseapp.databinding.ActivityBaseForRoomBinding
-import com.example.actorsdatabaseapp.ui.actorsforroom.ActorsRFragment
-import com.example.actorsdatabaseapp.ui.moviesforroom.MoviesRFragment
 
 class BaseActivityForRoom : AppCompatActivity() {
     private lateinit var binding: ActivityBaseForRoomBinding

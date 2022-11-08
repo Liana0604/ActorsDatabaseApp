@@ -28,18 +28,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/age"
-        app:layout_constraintBottom_toTopOf="@+id/petsListTextView"
+        app:layout_constraintBottom_toTopOf="@+id/petsNameTextView"
         app:layout_constraintStart_toStartOf="@id/actorsSurnameTextView"
         app:layout_constraintTop_toBottomOf="@+id/actorsSurnameTextView" />
 
     <TextView
-        android:id="@+id/petsListTextView"
+        android:id="@+id/petsNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/pet_name"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/petsAgeTextView"
         app:layout_constraintStart_toStartOf="@id/actorsAgeTextView"
         app:layout_constraintTop_toBottomOf="@id/actorsAgeTextView" />
+
+    <TextView
+        android:id="@+id/petsAgeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pet_age"
+        app:layout_constraintBottom_toTopOf="@id/petIsSmartTextView"
+        app:layout_constraintStart_toStartOf="@id/petsNameTextView"
+        app:layout_constraintTop_toBottomOf="@id/petsNameTextView" />
+
+    <TextView
+        android:id="@+id/petIsSmartTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/is_smart"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/petsAgeTextView"
+        app:layout_constraintTop_toBottomOf="@id/petsAgeTextView" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/deleteIconButton"
