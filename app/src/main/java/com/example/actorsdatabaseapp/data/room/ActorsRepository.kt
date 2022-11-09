@@ -11,15 +11,15 @@ class ActorsRepository(private val actorsDao: ActorsDao) {
     val getActorsWithMoviesData: LiveData<MutableList<ActorWithMovies>> =
         actorsDao.getActorsWithMoviesData()
 
-    fun addActor(actor: Actors) {
+    suspend fun addActor(actor: Actors) {
         actorsDao.addActor(actor)
     }
 
-    fun addMovies(movie: Movies) {
+    suspend fun addMovies(movie: Movies) {
         actorsDao.addMovie(movie)
     }
 
-    fun deleteActor(actor: Actors) {
+    suspend fun deleteActor(actor: Actors) {
         actorsDao.deleteActor(actor)
     }
 
@@ -27,7 +27,7 @@ class ActorsRepository(private val actorsDao: ActorsDao) {
 //        actorsDao.deleteAllActors()
 //    }
 
-    fun deleteMovie(movie: Movies) {
+    suspend fun deleteMovie(movie: Movies) {
         actorsDao.deleteMovie(movie)
     }
 

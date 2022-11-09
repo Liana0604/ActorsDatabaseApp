@@ -9,10 +9,10 @@ import com.example.actorsdatabaseapp.data.room.entities.Movies
 @Dao
 interface ActorsDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addActor(actor: Actors)
+    suspend fun addActor(actor: Actors)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun addMovie(movie: Movies)
+    suspend fun addMovie(movie: Movies)
 
     @Query("SELECT * FROM actors_table ORDER BY id ASC")
     fun getActorsData(): LiveData<MutableList<Actors>>
@@ -21,16 +21,16 @@ interface ActorsDao {
     fun getMoviessData(): LiveData<MutableList<Movies>>
 
     @Delete
-    fun deleteActor(actor: Actors)
+    suspend fun deleteActor(actor: Actors)
 
     @Delete
-    fun deleteMovie(movie: Movies)
+    suspend fun deleteMovie(movie: Movies)
 
     @Query("DELETE FROM actors_table")
-    fun deleteAllActors()
+    suspend fun deleteAllActors()
 
     @Query("DELETE FROM movies_table")
-    fun deleteAllMovies()
+    suspend fun deleteAllMovies()
 
     @Transaction
     @Query("SELECT * FROM actors_table")
