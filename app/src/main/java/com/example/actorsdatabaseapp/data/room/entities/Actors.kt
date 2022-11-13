@@ -10,10 +10,10 @@ import com.google.gson.Gson
 data class Actors(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val name: String?,
-    val surname: String?,
-    val age: Int?,
-    val pets: List<Pet>
+    val name: String,
+    val surname: String,
+    val age: Int,
+    val pets: List<Pet>?
 )
 
 class PetsTypConverter {

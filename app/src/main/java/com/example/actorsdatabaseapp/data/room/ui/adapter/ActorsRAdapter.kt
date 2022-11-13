@@ -61,7 +61,7 @@ class ActorsRAdapter(private val itemClickListener: (ActionEnum, Actors) -> Unit
 
         override fun bind(item: Actors) {
             item.let {
-                item.pets.forEach {
+                item.pets?.forEach {
                     binding.petsNameTextView.text = it.name
                     binding.petsAgeTextView.text = it.age.toString()
                     binding.petIsSmartTextView.text = it.isSmart.toString()

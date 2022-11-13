@@ -71,35 +71,6 @@ class AppSQLiteHelper(private val context: Context) :
         return result
     }
 
-//    fun updateActor(actor: ActorsModel): Int {
-//        val db = this.writableDatabase
-//        val contentValues = ContentValues()
-//        contentValues.put(ActorEntity.NAME, actor.name)
-//        contentValues.put(ActorEntity.SURNAME, actor.surname)
-//        contentValues.put(ActorEntity.AGE, actor.age)
-//        contentValues.put(ActorEntity.PET, actor.pets.toString())
-//
-//        val whereClause = "${ActorEntity.ID} = ?"
-//        val whereArgs = arrayOf("${actor.id}")
-//        val result = db.update(ActorEntity.TABLE_NAME, contentValues, whereClause, whereArgs)
-//
-//        db.close()
-//        return result
-//    }
-
-//    fun updateMovie(movie: MoviesModel): Int {
-//        val db = this.writableDatabase
-//        val contentValues = ContentValues()
-//        contentValues.put(MovieEntity.NAME, movie.name)
-//        contentValues.put(MovieEntity.IMDBRATE, movie.imdbRate)
-//        contentValues.put(MovieEntity.ACTOR_ID, movie.actorId)
-//        val whereClause = "${MovieEntity.ID} = ?"
-//        val whereArgs = arrayOf("${movie.id}")
-//        val result = db.update(MovieEntity.TABLE_NAME, contentValues, whereClause, whereArgs)
-//
-//        db.close()
-//        return result
-//    }
 
     fun getActors(): ArrayList<ActorsModel> {
         val actorList: ArrayList<ActorsModel> = ArrayList()

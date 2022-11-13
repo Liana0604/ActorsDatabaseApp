@@ -65,9 +65,10 @@ class ActorsRFragment : Fragment() {
         val petName = binding.petNameEditText.text.toString()
         val petAge = binding.petAgeEditText.text.toString()
         val petIsSmartCheckBox = binding.isSmartCheckBox
-        val pet = Pet(petName, petAge.toInt(), petIsSmartCheckBox.isChecked)
         val petList = ArrayList<Pet>()
-        petList.add(pet)
+        if (petName.isNotEmpty() && petAge.isNotEmpty()) {
+            petList.add(Pet(petName, petAge.toInt(), petIsSmartCheckBox.isChecked))
+        }
         if (actorsName.isNotEmpty() && actorsSurname.isNotEmpty() && actorsAge.isNotEmpty()) {
             val actor = Actors(0, actorsName, actorsSurname, actorsAge.toInt(), petList)
             actorsViewModel.addActor(actor)
@@ -103,7 +104,7 @@ class ActorsRFragment : Fragment() {
     private fun showAddMovieDialog(id: Int) {
         Dialog(requireActivity()).apply {
             setContentView(R.layout.dialog_add_movie)
-            findViewById<TextView>(R.id.actorIdInDialogTV).setText(id.toString())
+            findViewById<TextView>(R.id.actorIdInDialogTV).text = id.toString()
             findViewById<Button>(R.id.addMovieDialogButton).setOnClickListener {
                 val movieName = findViewById<EditText>(R.id.movieNameEditText).text.toString()
                 val imdbRate = findViewById<EditText>(R.id.imdbRateEditText).text.toString()
