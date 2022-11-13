@@ -7,10 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
 import com.example.actorsdatabaseapp.data.sqlite.entities.ActorEntity
 import com.example.actorsdatabaseapp.data.sqlite.entities.MovieEntity
-import com.example.actorsdatabaseapp.data.sqlite.models.ActorsModel
-import com.example.actorsdatabaseapp.data.sqlite.models.ActorsMoviesModel
-import com.example.actorsdatabaseapp.data.sqlite.models.MoviesModel
-import com.example.actorsdatabaseapp.data.sqlite.models.Pet
+import com.example.actorsdatabaseapp.data.sqlite.models.*
 
 class AppSQLiteHelper(private val context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
@@ -43,7 +40,7 @@ class AppSQLiteHelper(private val context: Context) :
         contentValues.put(ActorEntity.NAME, actor.name)
         contentValues.put(ActorEntity.SURNAME, actor.surname)
         contentValues.put(ActorEntity.AGE, actor.age)
-        contentValues.put(ActorEntity.PET, actor.pets.toString())
+        contentValues.put(ActorEntity.PET, PetTypeConverter.listToJson(actor.pets))
         try {
             result = db.insert(ActorEntity.TABLE_NAME, null, contentValues)
         } catch (e: Exception) {
@@ -90,7 +87,11 @@ class AppSQLiteHelper(private val context: Context) :
                         val pet = cursor.getString(cursor.getColumnIndexOrThrow(ActorEntity.PET))
                         actorList.add(
                             ActorsModel(
-                                id, name, surname, age, arrayListOf(Pet(pet, age, true))
+                                id,
+                                name,
+                                surname,
+                                age,
+                                PetTypeConverter.jsonToList(pet) as ArrayList<Pet>
                             )
                         )
                     } while (cursor.moveToNext())

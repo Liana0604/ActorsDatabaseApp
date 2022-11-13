@@ -57,7 +57,11 @@ class ActorsAdapter(private val itemClickListener: (ActionEnum, ActorsModel) -> 
 
         override fun bind(item: ActorsModel) {
             item.let {
-                binding.petsNameTextView.text = item.pets.toString()
+                item.pets?.forEach {
+                    binding.petsNameTextView.text = it.name
+                    binding.petsAgeTextView.text = it.age.toString()
+                    binding.petIsSmartTextView.text = it.isSmart.toString()
+                }
                 binding.actorsNameTextView.text = item.name
                 binding.actorsSurnameTextView.text = item.surname
                 binding.actorsAgeTextView.text = item.age.toString()

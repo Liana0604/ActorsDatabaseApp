@@ -21,5 +21,5 @@ class PetsTypConverter {
     fun listToJson(value: List<Pet>?) = Gson().toJson(value)
 
     @TypeConverter
-    fun jsonToList(value: String) = Gson().fromJson(value, Array<Pet>::class.java).toList()
+    fun jsonToList(value: String) = Gson().fromJson(value, Array<Pet>::class.java).toMutableList()
 }

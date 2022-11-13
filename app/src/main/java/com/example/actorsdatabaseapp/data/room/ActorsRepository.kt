@@ -23,15 +23,8 @@ class ActorsRepository(private val actorsDao: ActorsDao) {
         actorsDao.deleteActor(actor)
     }
 
-//    fun deleteAllActors() {
-//        actorsDao.deleteAllActors()
-//    }
-
     suspend fun deleteMovie(movie: Movies) {
         actorsDao.deleteMovie(movie)
     }
 
-//    fun deleteAllMovies() {
-//        actorsDao.deleteAllMovies()
-//    }
 }
